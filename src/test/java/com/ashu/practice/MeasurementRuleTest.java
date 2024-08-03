@@ -1,11 +1,7 @@
-
 package com.ashu.practice;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.drools.model.codegen.ExecutableModelProject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieFileSystem;
@@ -17,21 +13,25 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import java.util.HashSet;
+import java.util.Set;
 
-public class RuleTest {
-    static final Logger LOG = LoggerFactory.getLogger(RuleTest.class);
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
+class MeasurementRuleTest {
+    static final Logger LOG = LoggerFactory.getLogger(MeasurementRuleTest.class);
 
     @Test
-    public void test() {
+    void test() {
         KieContainer kContainer = createKieContainer();
 
         LOG.info("Creating kieBase");
         KieBase kieBase = kContainer.getKieBase();
 
         LOG.info("There should be rules: ");
-        for ( KiePackage kp : kieBase.getKiePackages() ) {
+        for (KiePackage kp : kieBase.getKiePackages()) {
             for (Rule rule : kp.getRules()) {
                 LOG.info("kp " + kp + " rule " + rule.getName());
             }
@@ -61,10 +61,10 @@ public class RuleTest {
 
             LOG.info("Final checks");
 
-            assertEquals("Size of object in Working Memory is 3", 3, session.getObjects().size());
-            assertTrue("contains red", check.contains("red"));
-            assertTrue("contains green", check.contains("green"));
-            assertTrue("contains blue", check.contains("blue"));
+            assertEquals(3, session.getObjects().size(), "Size of object in Working Memory is 3");
+            assertTrue(check.contains("red"), "contains red");
+            assertTrue(check.contains("green"), "contains green");
+            assertTrue(check.contains("blue"), "contains blue");
         } finally {
             session.dispose();
         }
@@ -76,7 +76,7 @@ public class RuleTest {
         KieFileSystem kfs = ks.newKieFileSystem();
         String packagePath = "com.ashu.practice".replace(".", "/");
         kfs.write("src/main/resources/" + packagePath + "/rules.drl",
-                  ks.getResources().newInputStreamResource(this.getClass().getClassLoader().getResourceAsStream(packagePath + "/rules.drl")));
+                ks.getResources().newInputStreamResource(this.getClass().getClassLoader().getResourceAsStream(packagePath + "/rules.drl")));
         ReleaseId releaseId = ks.newReleaseId("com.ashu.practice", "drools-practice", "1.0.0-SNAPSHOT");
         kfs.generateAndWritePomXML(releaseId);
         ks.newKieBuilder(kfs).buildAll(ExecutableModelProject.class);

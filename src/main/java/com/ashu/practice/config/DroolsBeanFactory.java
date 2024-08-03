@@ -30,7 +30,7 @@ public class DroolsBeanFactory {
 
     private KieFileSystem getKieFileSystem() {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        List<String> rules = List.of("com/ashu/practice/SuggestApplicant.drl");
+        List<String> rules = List.of("com/ashu/practice/SuggestApplicant.drl","com/ashu/practice/Product_rules.drl.xls");
         for (String rule : rules) {
             kieFileSystem.write(ResourceFactory.newClassPathResource(rule));
         }

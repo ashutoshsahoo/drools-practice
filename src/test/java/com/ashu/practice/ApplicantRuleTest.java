@@ -2,27 +2,27 @@ package com.ashu.practice;
 
 import com.ashu.practice.model.Applicant;
 import com.ashu.practice.model.SuggestedRole;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static junit.framework.Assert.assertNull;
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-public class ApplicantServiceIntegrationTest {
+class ApplicantRuleTest {
 
 
     private ApplicantService applicantService;
 
-    @Before
+    @BeforeEach
     public void setup() {
         applicantService = new ApplicantService();
     }
 
     @Test
-    public void whenCriteriaMatching_ThenSuggestManagerRole() throws IOException {
+    void whenCriteriaMatching_ThenSuggestManagerRole() throws IOException {
         Applicant applicant = new Applicant("Davis", 37, 1600000.0, 11);
         SuggestedRole suggestedRole = new SuggestedRole();
         applicantService.suggestARoleForApplicant(applicant, suggestedRole);
@@ -30,7 +30,7 @@ public class ApplicantServiceIntegrationTest {
     }
 
     @Test
-    public void whenCriteriaMatching_ThenSuggestSeniorDeveloperRole() throws IOException {
+    void whenCriteriaMatching_ThenSuggestSeniorDeveloperRole() throws IOException {
         Applicant applicant = new Applicant("John", 37, 1200000.0, 8);
         SuggestedRole suggestedRole = new SuggestedRole();
         applicantService.suggestARoleForApplicant(applicant, suggestedRole);
@@ -38,7 +38,7 @@ public class ApplicantServiceIntegrationTest {
     }
 
     @Test
-    public void whenCriteriaMatching_ThenSuggestDeveloperRole() throws IOException {
+    void whenCriteriaMatching_ThenSuggestDeveloperRole() throws IOException {
         Applicant applicant = new Applicant("Davis", 37, 800000.0, 3);
         SuggestedRole suggestedRole = new SuggestedRole();
         applicantService.suggestARoleForApplicant(applicant, suggestedRole);
@@ -46,7 +46,7 @@ public class ApplicantServiceIntegrationTest {
     }
 
     @Test
-    public void whenCriteriaNotMatching_ThenNoRole() throws IOException {
+    void whenCriteriaNotMatching_ThenNoRole() throws IOException {
         Applicant applicant = new Applicant("John", 37, 1200000.0, 5);
         SuggestedRole suggestedRole = new SuggestedRole();
         applicantService.suggestARoleForApplicant(applicant, suggestedRole);
