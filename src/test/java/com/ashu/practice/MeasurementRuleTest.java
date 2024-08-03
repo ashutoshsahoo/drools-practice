@@ -75,8 +75,8 @@ class MeasurementRuleTest {
         KieServices ks = KieServices.Factory.get();
         KieFileSystem kfs = ks.newKieFileSystem();
         String packagePath = "com.ashu.practice".replace(".", "/");
-        kfs.write("src/main/resources/" + packagePath + "/rules.drl",
-                ks.getResources().newInputStreamResource(this.getClass().getClassLoader().getResourceAsStream(packagePath + "/rules.drl")));
+        kfs.write("src/main/resources/" + packagePath + "/color.drl",
+                ks.getResources().newInputStreamResource(this.getClass().getClassLoader().getResourceAsStream(packagePath + "/color.drl")));
         ReleaseId releaseId = ks.newReleaseId("com.ashu.practice", "drools-practice", "1.0.0-SNAPSHOT");
         kfs.generateAndWritePomXML(releaseId);
         ks.newKieBuilder(kfs).buildAll(ExecutableModelProject.class);
